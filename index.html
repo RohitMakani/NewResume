@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Upload Resume for Analysis</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="file" required />
+        <button type="submit">Upload</button>
+    </form>
+
+    <div id="result" style="margin-top:20px;"></div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('file');
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            const res = await fetch("http://localhost:8001/api/upload-resume", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById('result').innerHTML = `
+                    <p><strong>Resume ID:</strong> ${data.resume_id}</p>
+                    <p><strong>Filename:</strong> ${data.filename}</p>
+                    <p><strong>Preview:</strong> <pre>${data.preview}</pre></p>
+                `;
+            } else {
+                document.getElementById('result').innerText = "Error: " + data.detail;
+            }
+        });
+    </script>
+</body>
+</html>

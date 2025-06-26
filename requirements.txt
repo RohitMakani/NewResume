@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+pytesseract
+pdfplumber
+python-docx
+pillow
+opencv-python
+motor
+spacy
+sentence-transformers
+scikit-learn
+groq
+python-multipart
