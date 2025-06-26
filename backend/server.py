@@ -109,7 +109,12 @@ except IOError:
 # Initialize Groq client
 groq_client = None
 if GROQ_API_KEY:
-    groq_client = Groq(api_key=GROQ_API_KEY)
+    try:
+        groq_client = Groq(api_key=GROQ_API_KEY)
+        logger.info("Groq client initialized successfully")
+    except Exception as e:
+        logger.warning(f"Failed to initialize Groq client: {e}. AI features will be disabled.")
+        groq_client = None
 else:
     logger.warning("GROQ_API_KEY not found. AI features will be disabled.")
 
