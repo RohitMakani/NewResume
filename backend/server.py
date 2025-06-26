@@ -613,7 +613,10 @@ async def health_check():
     }
 
 # Serve static files
-app.mount("/", StaticFiles(directory="../frontend", html=True), name="static")
+import os
+frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+if os.path.exists(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="static")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)
