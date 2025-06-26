@@ -6,6 +6,10 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 import logging
 import json
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
